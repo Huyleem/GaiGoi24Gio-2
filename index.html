@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GaiGoi24Gio</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #0d0d0d;
+            color: #ddd;
+            overflow-x: hidden;
+        }
+
+       
+        #intro {
+            position: fixed;
+            inset: 0;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: introFadeOut 1.2s ease forwards;
+            animation-delay: 2.3s;
+        }
+
+        .intro-logo {
+            width: 260px;
+            filter: drop-shadow(0 0 25px #ff00d0);
+            opacity: 0;
+            animation:
+                introAppear 1.2s ease forwards,
+                introPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes introAppear {
+            from { opacity: 0; transform: scale(0.7); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes introPulse {
+            0%, 100% { filter: drop-shadow(0 0 15px #ff00d0); }
+            50% { filter: drop-shadow(0 0 35px #ff33ff); }
+        }
+
+        @keyframes introFadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        body.loaded main {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        main {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 1s ease;
+        }
+
+        .logo-img {
+            height: 55px;
+            width: auto;
+            filter: drop-shadow(0 0 8px #ff00d0);
+            transition: 0.3s;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.08);
+            filter: drop-shadow(0 0 15px #ff00ff);
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 1s;
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(5px);
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .menu li {
+            margin-left: 25px;
+        }
+
+        .menu li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .menu li a:hover {
+            color: #ff00d4;
+        }
+
+        
+        .hero {
+            height: 100vh;
+            background: linear-gradient(to bottom, #0008, #000d),
+                url('https://pos.nvncdn.com/08d562-10030/art/artCT/20160831_o96Wd0xHz7kHYtOvR6KSYnW5.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            color: white;
+            animation: fadein 2s ease-in-out;
+        }
+
+        @keyframes fadein {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            text-shadow: 0 0 20px #ff00d0;
+            animation: glow 2s infinite alternate ease-in-out;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #ff00d0; }
+            to { text-shadow: 0 0 25px #ff44ff; }
+        }
+
+        .hero button {
+            margin-top: 30px;
+            padding: 14px 35px;
+            border: none;
+            font-size: 18px;
+            border-radius: 50px;
+            background: linear-gradient(45deg, #ff00d0, #ff5fb6);
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 15px #ff00d0;
+        }
+
+        .hero button:hover {
+            transform: scale(1.12);
+            box-shadow: 0 0 25px #ff00d0;
+        }
+
+        .section {
+            padding: 80px 10%;
+            text-align: center;
+        }
+
+        .section h2 {
+            font-size: 34px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .slider {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 0 25px #ff00d077;
+        }
+
+        .slides {
+            display: flex;
+            width: 300%;
+            animation: slide 12s infinite;
+        }
+
+        .slides img {
+            width: 100%;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0%); }
+            33% { transform: translateX(-100%); }
+            66% { transform: translateX(-200%); }
+            100% { transform: translateX(0%); }
+        }
+
+        .service-list {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            padding: 30px;
+            background: #1a1a1a;
+            border-radius: 15px;
+            width: 230px;
+            color: #fff;
+            font-size: 18px;
+            box-shadow: 0 0 20px #ff00d066;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 0 30px #ff00d0aa;
+        }
+
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            width: 330px;
+            margin: 40px auto 0 auto;
+            gap: 12px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 12px;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 8px;
+        }
+
+        .contact-form button {
+            padding: 12px;
+            background: linear-gradient(45deg, #ff00d0, #ff5fb6);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .contact-form button:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #000;
+            color: #ccc;
+            margin-top: 40px;
+            border-top: 1px solid #222;
+        }
+        
+        
+        .auth-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none; /* Mặc định ẩn */
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+        .auth-modal.visible {
+            display: flex; /* Hiện khi cần */
+        }
+        .auth-container {
+            padding: 40px;
+            background: #1a1a1a;
+            border-radius: 15px;
+            box-shadow: 0 0 30px #ff00d0aa;
+            text-align: center;
+            width: 380px;
+            position: relative;
+        }
+        .tab-buttons {
+            display: flex;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px #000;
+        }
+        .tab-button {
+            flex-grow: 1;
+            padding: 12px;
+            background: #2a2a2a;
+            color: #ccc;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+        .tab-button.active {
+            background: linear-gradient(45deg, #ff00d0, #ff5fb6);
+            color: white;
+            font-weight: 600;
+        }
+        .tab-content {
+            display: none;
+            text-align: left;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .auth-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .auth-form button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #ff00d0, #ff5fb6);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .flash {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            color: white;
+            font-weight: 600;
+            text-align: center;
+        }
+        .flash.error { background-color: #d9534f; }
+        .flash.success { background-color: #5cb85c; }
+        .flash.info { background-color: #5bc0de; }
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            color: #ccc;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .auth-container {
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+        .auth-modal.visible .auth-container {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .flash {
+            
+            transition: opacity 0.5s ease-out; 
+        }
+        .flash.fade-out {
+           
+            opacity: 0; 
+        }
+    </style>
+</head>
+
+<body>
+   
+    <div id="intro">
+        <h1 class="intro-logo">GaiGoi24Gio</h1>
+    </div>
+
+    <div style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; text-align: center;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}" style="padding: 15px 0; width: 100%;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <main>
+        <header>
+            <nav class="navbar fade-in">
+                <h2 class="logo">GaiGoi24Gio</h2>
+                <ul class="menu">
+                    <li><a href="#home">Trang chủ</a></li>
+                    <li><a href="#about">Giới thiệu</a></li>
+                    <li><a href="#services">Dịch vụ</a></li>
+                    <li><a href="#contact">Liên hệ</a></li>
+                    
+                    {% if logged_in %}
+                    <li><a href="{{ url_for('logout') }}" style="color: #ff00d4;">Đăng xuất ({{ session.username }})</a></li>
+                    {% else %}
+                    <li><a href="#" onclick="openAuthModal('login')">Đăng nhập</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+
+        <section id="home" class="hero">
+            <div class="hero-text">
+                <h1>Chào mừng bạn đến với dịch vụ Thiên Đường</h1>
+                <p>Quý Phái – Đích Thực – Nam Tính</p>
+                <button onclick="alert('Haha vẫn bị lừa 😎')">Bấm để tiếp tục</button>
+            </div>
+        </section>
+
+        <section id="slider" class="section fade-in">
+            <h2>Hình ảnh nổi bật</h2>
+            <div class="slider">
+                <div class="slides">
+                    <img src="https://i.imgur.com/IRjBc6U.jpeg">
+                    <img src="https://i.imgur.com/Kf2gU2Y.jpeg">
+                    <img src="https://i.imgur.com/5WzH8qg.jpeg">
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section fade-in">
+            <h2>Giới Thiệu</h2>
+            <p>Đây là nơi dành cho đàn ông quý phái, là nơi cảm xúc thăng hoa.</p>
+        </section>
+
+        <section id="services" class="section fade-in">
+            <h2>Dịch vụ</h2>
+            <div class="service-list">
+                <div class="card">Massage cao cấp</div>
+                <div class="card">Chăm sóc VIP</div>
+                <div class="card">Trải nghiệm thiên đường</div>
+            </div>
+        </section>
+
+        <section id="contact" class="section fade-in">
+            <h2>Liên hệ</h2>
+            <form class="contact-form" action="{{ url_for('submit_data') }}" method="POST">
+                <input type="text" name="name" placeholder="Họ và tên" required />
+                <input type="email" name="email" placeholder="Email" required />
+                <textarea name="message" placeholder="Nội dung"></textarea>
+                <button type="submit">Gửi</button>
+            </form>
+        </section>
+        
+        <div id="authModal" class="auth-modal">
+            <div class="auth-container">
+                <span class="close-button" onclick="closeAuthModal()">&times;</span>
+                
+                <div class="tab-buttons">
+                    <button class="tab-button" onclick="showForm('login')">Đăng nhập</button>
+                    <button class="tab-button" onclick="showForm('register')">Đăng ký</button>
+                </div>
+
+                <div id="login-form" class="tab-content">
+                    <h2>Đăng nhập</h2>
+                    <form class="auth-form" method="POST" action="{{ url_for('auth') }}">
+                        <input type="hidden" name="form_type" value="login">
+                        <input type="text" name="username" placeholder="Tên đăng nhập" required />
+                        <input type="password" name="password" placeholder="Mật khẩu" required />
+                        <button type="submit">Đăng nhập</button>
+                    </form>
+                </div>
+
+                <div id="register-form" class="tab-content">
+                    <h2>Đăng ký</h2>
+                    <form class="auth-form" method="POST" action="{{ url_for('auth') }}">
+                        <input type="hidden" name="form_type" value="register">
+                        <input type="text" name="username" placeholder="Tên đăng nhập mới" required />
+                        <input type="password" name="password" placeholder="Mật khẩu" required />
+                        <input type="password" name="confirm_password" placeholder="Nhập lại Mật khẩu" required />
+                        <button type="submit">Đăng ký</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <footer>
+            <p>© 2025. Tất cả bản quyền thuộc về bố.</p>
+            <p>Hotline: 0334584961 | Email: Bomaysomayqua@hotmail.com</p>
+        </footer>
+
+    </main>
+
+    <script>
+        window.onload = () => {
+            setTimeout(() => {
+                document.body.classList.add("loaded");
+            }, 2500);
+        };
+
+        const elements = document.querySelectorAll('.fade-in');
+
+        function checkScroll() {
+            const trigger = window.innerHeight - 100;
+
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect().top;
+                if (rect < trigger) el.classList.add('show');
+            });
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        checkScroll();
+
+
+       
+        const authModal = document.getElementById('authModal');
+        
+        const initialAction = "{{ initial_action }}"; 
+
+        function showForm(action) {
+            document.querySelectorAll('#authModal .tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('#authModal .tab-button').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(action + '-form').classList.add('active');
+             
+            document.querySelector('.tab-buttons button:nth-child(' + (action === 'login' ? 1 : 2) + ')').classList.add('active');
+        }
+
+        function openAuthModal(action) {
+            showForm(action);
+            authModal.classList.add('visible');
+        }
+
+        function closeAuthModal() {
+            authModal.classList.remove('visible');
+            
+            if (window.location.href.includes('?action=')) {
+                 window.location.href = window.location.href.split('?')[0];
+            }
+        }
+
+        
+        if (initialAction !== 'none') {
+            openAuthModal(initialAction);
+        }
+
+       
+        authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                closeAuthModal();
+            }
+        });
+        
+document.addEventListener('DOMContentLoaded', function() {
+    const flashMessages = document.querySelectorAll('.flash');
+    if (flashMessages.length > 0) {
+        
+        setTimeout(() => {
+            flashMessages.forEach(msg => {
+                
+                msg.classList.add('fade-out');
+                
+                
+                setTimeout(() => {
+                    msg.style.display = 'none';
+                }, 500); 
+            });
+        }, 5000); 
+    }
+});
+    </script>
+
+</body>
+</html>
